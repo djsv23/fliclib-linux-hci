@@ -1,0 +1,14 @@
+FROM busybox:glibc
+MAINTAINER Daniel Steiner <djsteiner93@gmail.com>
+
+ENV ARCH=armv6l
+
+COPY /bin/armv6l /usr/bin/flicd
+
+RUN chmod +x /usr/bin/flicd && \
+    mkdir /config
+
+WORKDIR /config
+VOLUME ["/config"]
+EXPOSE 5551
+ENTRYPOINT ["/usr/bin/flicd", "-f", "/config/db", "-s", "0.0.0.0", "-p", "5551"]
